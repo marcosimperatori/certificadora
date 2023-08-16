@@ -14,7 +14,13 @@
   <link rel="stylesheet" href="<?php echo base_url("assets/fontawesome/css/all.min.css") ?>">
 
   <link rel="stylesheet" href="<?php echo base_url("assets/css/app.css") ?>">
-  <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/af-2.6.0/b-2.4.1/b-html5-2.4.1/r-2.5.0/datatables.min.css" rel="stylesheet">
+
+
+  <link href="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.13.4/af-2.5.3/r-2.4.1/datatables.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css" integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
 
 
 </head>
@@ -66,9 +72,12 @@
   <script src="<?php echo base_url("assets/js/app.js") ?>"></script>
 
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-  <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/af-2.6.0/b-2.4.1/b-html5-2.4.1/r-2.5.0/datatables.min.js"></script>
+  <script src="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.13.4/af-2.5.3/r-2.4.1/datatables.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
+
+
+  <script src="<?php echo base_url("assets/js/comons.js") ?>"></script>
+
 
   <?php echo $this->renderSection('scripts'); ?>
 </body>

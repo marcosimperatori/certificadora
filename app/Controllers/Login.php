@@ -18,7 +18,8 @@ class Login extends BaseController
 
         $data = [
             'email' => 'email@google.com.br',
-            'senha' => '12'
+            'senha' => '12',
+            'nome'  => 'Marcos Vinícius',
         ];
 
         $user->insert($data);

@@ -38,6 +38,7 @@ $routes->get('login/logout', 'Login::logout', ['as' => 'login.logout']);
 
 
 $routes->get('escritorios', 'Escritorio::index', ['as' => 'escritorios']);
+$routes->get('escritorios/getall', 'Escritorio::getAll');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

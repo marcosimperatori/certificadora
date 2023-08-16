@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class User extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'user';
+    protected $table            = 'users';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'App\Entities\UserEntity';
