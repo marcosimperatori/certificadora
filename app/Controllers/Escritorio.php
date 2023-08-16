@@ -30,10 +30,11 @@ class Escritorio extends BaseController
         $data = [];
 
         foreach ($escritorios as $escritorio) {
+            $id = password_hash($escritorio->id, PASSWORD_DEFAULT);
             $data[] = [
                 'nome'  => $escritorio->nome,
                 'ativo' => ($escritorio->ativo == true ? '<i class="fa fa-toggle-on text-info-emphasis"></i>&nbsp;Ativo' : '<i class="fa fa-toggle-off text-secondary"></i>&nbsp;Inativo'),
-                'acoes' => '<a  href="' . base_url("escritorios/editar/$escritorio->id") . '" title="Editar"><i class="fas fa-edit text-success"></i></a> &nbsp; 
+                'acoes' => '<a  href="' . base_url("escritorios/editar/$id") . '" title="Editar"><i class="fas fa-edit text-success"></i></a> &nbsp; 
                 <a  href="' . base_url("escritorios/excluir/$escritorio->id") . '" title="Excluir"><i class="fas fa-trash-alt text-danger"></i></a>'
             ];
         }
