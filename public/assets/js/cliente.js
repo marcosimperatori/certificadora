@@ -13,7 +13,7 @@ $("#lista-clientes").DataTable({
   },
   columns: [
     {
-      data: "nome",
+      data: "razao",
     },
     {
       data: "cidade",
@@ -51,4 +51,42 @@ $("#lista-clientes").DataTable({
       targets: [3],
     },
   ],
+});
+
+$("#id_cidade").selectize({
+  valueField: "id",
+  labelField: "nome",
+  searchField: "nome",
+  placeholder: "Pesquisar cidade",
+  maxItems: 1,
+  render: {
+    option: function (item, escape) {
+      return (
+        '<div class="font-weight-bold text-primary ml-1"><i class="fas fa-long-arrow-alt-right text-secondary"></i>&nbsp;&nbsp;' +
+        "<strong>" +
+        item.nome +
+        "/" +
+        item.uf +
+        "</strong>" +
+        '<br><strong class="text-success mx-3 my-3">' +
+        "&nbsp; Código IBGE: " +
+        item.codigo_ibge +
+        "</strong>" +
+        "</div>"
+      );
+    },
+  },
+  load: function (query, callback) {
+    if (query.length < 2) return callback();
+    $.ajax({
+      url: "clientes/consulta_cidade",
+      data: {
+        q: query,
+      },
+      dataType: "json",
+      success: function (response) {
+        callback(response.data);
+      },
+    });
+  },
 });

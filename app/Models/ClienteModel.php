@@ -23,8 +23,17 @@ class ClienteModel extends Model
     protected $deletedField  = 'deletado_em';
 
     // Validation
-    protected $validationRules      = [];
-    protected $validationMessages   = [];
+    protected $validationRules      = [
+        'razao' => 'required|min_length[3]|max_length[250]|is_unique[clientes.razao,id,{$id}',
+    ];
+    protected $validationMessages   = [
+        'razao' => [
+            'required' => 'Obrigatório informar a razão social',
+            'min_lenth'=> 'A razão social dever pelo menos 03 caracteres',
+            'max_lenth'=> 'A razão social dever no máximo 255 caracteres',
+            'is_unique'  => 'Esta razão social já está sendo usado'
+        ]
+    ];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 

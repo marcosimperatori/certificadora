@@ -42,7 +42,10 @@ $routes->get('escritorios/getall', 'Escritorio::getAll');
 $routes->get('escritorios/editar/(:any)', 'Escritorio::editar/$1');
 $routes->get('escritorios/excluir/(:any)', 'Escritorio::editar/$1');
 
+
+$routes->get('clientes', 'Cliente::index', ['as' => 'clientes']);
 $routes->get('clientes/getall', 'Cliente::getAll');
+$routes->get('clientes/consulta_cidade', 'Cliente::listarCidades');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
