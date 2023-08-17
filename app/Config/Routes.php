@@ -11,7 +11,7 @@ $routes = Services::routes();
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Home');
+$routes->setDefaultController('Login');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
@@ -39,6 +39,10 @@ $routes->get('login/logout', 'Login::logout', ['as' => 'login.logout']);
 
 $routes->get('escritorios', 'Escritorio::index', ['as' => 'escritorios']);
 $routes->get('escritorios/getall', 'Escritorio::getAll');
+$routes->get('escritorios/editar/(:any)', 'Escritorio::editar/$1');
+$routes->get('escritorios/excluir/(:any)', 'Escritorio::editar/$1');
+
+$routes->get('clientes/getall', 'Cliente::getAll');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

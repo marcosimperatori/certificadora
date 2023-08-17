@@ -10,13 +10,13 @@
   </ol>
 </div>
 
-<section class="my-2">
+<section id="tab-escritorios" class="my-2">
   <div class="card border-secondary mb-3" style="max-width: 100%;">
     <div class="card-header">
       <button type="button" class="btn btn-info my-3" data-bs-toggle="modal" data-bs-target="#modalEdit">Novo</button>
     </div>
     <div class="card-body">
-      <table id="lista-escritorios" class="table table-hover responsive">
+      <table id="lista-escritorios" class="table table-hover">
         <thead class="table-light text-white">
           <tr>
             <th scope="col">Escritório</th>
@@ -40,7 +40,15 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>Conteúdo do modal vai aqui.</p>
+        <div class="form-group">
+          <label for="exampleInputEmail1" class="form-label mt-4 text-body-emphasis">Razão Social</label>
+          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Informe a razão social">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1" class="form-label mt-4">Email</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Digite o email do cliente">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>

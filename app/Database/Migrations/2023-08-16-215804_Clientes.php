@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Users extends Migration
+class Clientes extends Migration
 {
     public function up()
     {
@@ -15,13 +15,9 @@ class Users extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true
             ],
-            'nome' => [
+            'razao' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
-            ],
-            'senha' => [
-                'type' => 'VARCHAR',
-                'constraint' => 80,
             ],
             'email' => [
                 'type' => 'VARCHAR',
@@ -30,6 +26,11 @@ class Users extends Migration
             'ativo' => [
                 'type' => 'BOOLEAN',
                 'default' => false,
+            ],
+            'cidade' => [
+                'type' => 'INT',
+                'constraint' => 9,
+                'unsigned'       => true
             ],
             'criado_em' => [
                 'type' => 'DATETIME',
@@ -48,12 +49,13 @@ class Users extends Migration
             ]
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addUniqueKey('email');
-        $this->forge->createTable('users');
+        $this->forge->addUniqueKey('razao');
+        $this->forge->addForeignKey('cidade', 'municipio', 'id', 'CASCADE', 'NO ACTION', 'cliente_cidade');
+        $this->forge->createTable('clientes');
     }
 
     public function down()
     {
-        $this->forge->dropTable('users');
+        $this->forge->dropTable('clientes');
     }
 }

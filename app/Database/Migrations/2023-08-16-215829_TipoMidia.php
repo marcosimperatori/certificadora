@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Users extends Migration
+class TipoMidia extends Migration
 {
     public function up()
     {
@@ -15,21 +15,9 @@ class Users extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true
             ],
-            'nome' => [
+            'tipo' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
-            ],
-            'senha' => [
-                'type' => 'VARCHAR',
-                'constraint' => 80,
-            ],
-            'email' => [
-                'type' => 'VARCHAR',
-                'constraint' => 255,
-            ],
-            'ativo' => [
-                'type' => 'BOOLEAN',
-                'default' => false,
             ],
             'criado_em' => [
                 'type' => 'DATETIME',
@@ -48,12 +36,12 @@ class Users extends Migration
             ]
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addUniqueKey('email');
-        $this->forge->createTable('users');
+        $this->forge->addUniqueKey('tipo');
+        $this->forge->createTable('tipomidia');
     }
 
     public function down()
     {
-        $this->forge->dropTable('users');
+        $this->forge->dropTable('tipomidia');
     }
 }

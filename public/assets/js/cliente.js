@@ -1,19 +1,22 @@
-$("#lista-escritorios").DataTable({
+$("#lista-clientes").DataTable({
   oLanguage: DATATABLE_PTBR,
   ajax: {
-    url: "escritorios/getall",
+    url: "clientes/getall",
     beforeSend: function () {
-      $("#tab-escritorios").LoadingOverlay("show", {
+      $("#tab-clientes").LoadingOverlay("show", {
         background: "rgba(165, 190, 100, 0.5)",
       });
     },
     complete: function () {
-      $("#tab-escritorios").LoadingOverlay("hide");
+      $("#tab-clientes").LoadingOverlay("hide");
     },
   },
   columns: [
     {
       data: "nome",
+    },
+    {
+      data: "cidade",
     },
     {
       data: "ativo",
@@ -32,16 +35,20 @@ $("#lista-escritorios").DataTable({
   pageLength: 10,
   columnDefs: [
     {
-      width: "100px",
+      width: "180px",
       targets: [1],
     },
     {
-      width: "70px",
+      width: "100px",
       targets: [2],
     },
     {
+      width: "70px",
+      targets: [3],
+    },
+    {
       className: "text-center",
-      targets: [2],
+      targets: [3],
     },
   ],
 });
