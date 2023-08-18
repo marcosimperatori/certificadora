@@ -10,11 +10,13 @@
   </ol>
 </div>
 
+<?php echo $this->include('layouts/mensagem'); ?>
 
 <section id="tab-clientes" class="my-2">
   <div class="card border-secondary mb-3" style="max-width: 100%;">
     <div class="card-header">
-      <button type="button" class="btn btn-info my-3" data-bs-toggle="modal" data-bs-target="#modalEdit">Novo</button>
+      <a href="<?php echo site_url('clientes/criar'); ?>" class="btn btn-info btn-sm mb-4" title="Permite incluir um novo usuário no sistema">Novo cliente</a>
+
     </div>
     <div class="card-body">
       <table id="lista-clientes" class="table table-hover">
@@ -29,6 +31,9 @@
       </table>
     </div>
   </div>
+  <?php echo form_open('/teste', ['id' => 'form_cad_cliente', 'class' => 'insert'], ['id' => 2]) ?>
+  <?php form_close(); ?>
+
 </section>
 
 <!-- Estrutura do modal -->
@@ -40,30 +45,14 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true"></span>
         </button>
+        <?php echo $this->include('layouts/mensagem'); ?>
+        <div class="response"></div>
       </div>
       <div class="modal-body">
-        <div></div>
+        <?php echo form_open('/teste', ['id' => 'form_cad_cliente', 'class' => 'insert'], ['id' => 1]) ?>
 
-        <div class="form-group col-lg-12">
-          <label for="exampleInputEmail1" class="form-label mt-2">Razão Social</label>
-          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Informe a razão social">
-        </div>
-        <div class="form-group col-lg-12">
-          <label for="exampleInputEmail1" class="form-label mt-2">Email</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Digite o email do cliente">
-        </div>
-        <div class="form-group col-lg-12">
-          <label class="form-label mt-2">Cidade</label>
-          <input type="text" name="idcidade" id="id_cidade">
-          <div id="response2" class="mt-2"></div>
-        </div>
-        <div class="custom-control custom-checkbox">
-          <div class="form-check">
-            <input type="hidden" name="ativo" value="0">
-            <input type="checkbox" name="ativo" id="ativo" value="1" class="custom-control-input">
-            <label for="ativo" class="custom-control-label">Cliente ativo</label>
-          </div>
-        </div>
+
+        <?php form_close(); ?>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>

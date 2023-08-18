@@ -1,59 +1,61 @@
-$("#lista-clientes").DataTable({
-  oLanguage: DATATABLE_PTBR,
-  ajax: {
-    url: "clientes/getall",
-    beforeSend: function () {
-      $("#tab-clientes").LoadingOverlay("show", {
-        background: "rgba(165, 190, 100, 0.5)",
-      });
+$(document).ready(function () {
+  $("#lista-clientes").DataTable({
+    oLanguage: DATATABLE_PTBR,
+    ajax: {
+      url: "clientes/getall",
+      beforeSend: function () {
+        $("#tab-clientes").LoadingOverlay("show", {
+          background: "rgba(165, 190, 100, 0.5)",
+        });
+      },
+      complete: function () {
+        $("#tab-clientes").LoadingOverlay("hide");
+      },
     },
-    complete: function () {
-      $("#tab-clientes").LoadingOverlay("hide");
+    columns: [
+      {
+        data: "razao",
+      },
+      {
+        data: "cidade",
+      },
+      {
+        data: "ativo",
+      },
+      {
+        data: "acoes",
+      },
+    ],
+    deferRender: true,
+    processing: false,
+    language: {
+      processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>',
     },
-  },
-  columns: [
-    {
-      data: "razao",
-    },
-    {
-      data: "cidade",
-    },
-    {
-      data: "ativo",
-    },
-    {
-      data: "acoes",
-    },
-  ],
-  deferRender: true,
-  processing: false,
-  language: {
-    processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>',
-  },
-  responsive: true,
-  pagingType: $(window).width() < 768 ? "simple" : "simple_numbers",
-  pageLength: 10,
-  columnDefs: [
-    {
-      width: "180px",
-      targets: [1],
-    },
-    {
-      width: "100px",
-      targets: [2],
-    },
-    {
-      width: "70px",
-      targets: [3],
-    },
-    {
-      className: "text-center",
-      targets: [3],
-    },
-  ],
+    responsive: true,
+    pagingType: $(window).width() < 768 ? "simple" : "simple_numbers",
+    pageLength: 10,
+    columnDefs: [
+      {
+        width: "180px",
+        targets: [1],
+      },
+      {
+        width: "100px",
+        targets: [2],
+      },
+      {
+        width: "70px",
+        targets: [3],
+      },
+      {
+        className: "text-center",
+        targets: [3],
+      },
+    ],
+  });
 });
 
-$("#id_cidade").selectize({
+$("#cidade").selectize({
   valueField: "id",
   labelField: "nome",
   searchField: "nome",
@@ -79,7 +81,7 @@ $("#id_cidade").selectize({
   load: function (query, callback) {
     if (query.length < 2) return callback();
     $.ajax({
-      url: "clientes/consulta_cidade",
+      url: "consulta_cidade",
       data: {
         q: query,
       },
@@ -89,4 +91,46 @@ $("#id_cidade").selectize({
       },
     });
   },
+});
+
+$("#form_cad_cliente").on("submit", function (e) {
+  e.preventDefault();
+
+  if ($(this).hasClass("insert")) {
+    url = "cadastrar"; // URL para inserir
+  } else if ($(this).hasClass("update")) {
+    url = "/clientes/cadastrar"; // URL para atualizar
+  }
+
+  $.ajax({
+    type: "POST",
+    url: url,
+    data: new FormData(this),
+    dataType: "json",
+    contentType: false,
+    cache: false,
+    processData: false,
+    beforeSend: function () {
+      $("#response").html("");
+      $("#form_cad_cliente").LoadingOverlay("show", {
+        background: "rgba(165, 190, 100, 0.5)",
+      });
+    },
+    success: function (response) {
+      $("[name=csrf_test_name]").val(response.token);
+      if (response.erro) {
+        if (response.erros_model) {
+          exibirErros(response.erros_model);
+        }
+      } else {
+        window.location.href = response.redirect_url;
+      }
+    },
+    error: function () {
+      alert("falha ao executar a operação");
+    },
+    complete: function () {
+      $("#form_cad_cliente").LoadingOverlay("hide");
+    },
+  });
 });

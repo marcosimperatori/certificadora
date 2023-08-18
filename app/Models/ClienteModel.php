@@ -24,14 +24,14 @@ class ClienteModel extends Model
 
     // Validation
     protected $validationRules      = [
-        'razao' => 'required|min_length[3]|max_length[250]|is_unique[clientes.razao,id,{$id}',
+        'razao' => 'required|min_length[3]|max_length[250]|is_unique[clientes.razao,id,{$id}]',
     ];
     protected $validationMessages   = [
         'razao' => [
             'required' => 'Obrigatório informar a razão social',
-            'min_lenth'=> 'A razão social dever pelo menos 03 caracteres',
-            'max_lenth'=> 'A razão social dever no máximo 255 caracteres',
-            'is_unique'  => 'Esta razão social já está sendo usado'
+            'min_lenth' => 'A razão social dever pelo menos 03 caracteres',
+            'max_lenth' => 'A razão social dever no máximo 255 caracteres',
+            'is_unique'  => 'Esta razão social já está sendo usada'
         ]
     ];
     protected $skipValidation       = false;
