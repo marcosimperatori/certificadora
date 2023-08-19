@@ -3,7 +3,6 @@
 <?php echo $this->section('content'); ?>
 
 <div class="nav">
-
   <ol class="breadcrumb my-3">
     <li class="breadcrumb-item"><a href="<?= base_url('/') ?>">Home</a></li>
     <li class="breadcrumb-item active">Cadastro de Clientes</li>
@@ -14,9 +13,8 @@
 
 <section id="tab-clientes" class="my-2">
   <div class="card border-secondary mb-3" style="max-width: 100%;">
-    <div class="card-header">
+    <div class="card-header bg-light">
       <a href="<?php echo site_url('clientes/criar'); ?>" class="btn btn-info btn-sm mb-4" title="Permite incluir um novo usuário no sistema">Novo cliente</a>
-
     </div>
     <div class="card-body">
       <table id="lista-clientes" class="table table-hover">
@@ -31,9 +29,6 @@
       </table>
     </div>
   </div>
-  <?php echo form_open('/teste', ['id' => 'form_cad_cliente', 'class' => 'insert'], ['id' => 2]) ?>
-  <?php form_close(); ?>
-
 </section>
 
 <!-- Estrutura do modal -->

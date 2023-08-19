@@ -32,6 +32,7 @@ $(document).ready(function () {
       processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>',
     },
     responsive: true,
+    autoWidth: false,
     pagingType: $(window).width() < 768 ? "simple" : "simple_numbers",
     pageLength: 10,
     columnDefs: [
@@ -54,6 +55,10 @@ $(document).ready(function () {
     ],
   });
 });
+
+function setDados(){
+  
+}
 
 $("#cidade").selectize({
   valueField: "id",
@@ -97,9 +102,9 @@ $("#form_cad_cliente").on("submit", function (e) {
   e.preventDefault();
 
   if ($(this).hasClass("insert")) {
-    url = "cadastrar"; // URL para inserir
+    url = "cadastrar";
   } else if ($(this).hasClass("update")) {
-    url = "/clientes/cadastrar"; // URL para atualizar
+    url = "atualizar";
   }
 
   $.ajax({

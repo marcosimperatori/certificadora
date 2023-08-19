@@ -55,6 +55,7 @@ class Cliente extends BaseController
         $data = [
             'titulo' => "Criando novo cliente",
             'cliente' => $cliente,
+            'cidade'  => ''
         ];
 
         return view('cliente/criar', $data);
@@ -104,12 +105,57 @@ class Cliente extends BaseController
 
     public function editar($enc_id)
     {
-        echo "encriptado: " . $enc_id . "<br>";
         $id = decrypt($enc_id);
         if (!$id) {
             return redirect()->to('/');
         }
-        echo "normal: " . $id;
+
+        $cliente = $this->buscaClienteOu404($id);
+
+        $cidade = $this->clienteModel->select('municipio.nome,municipio.uf,municipio.codigo_ibge')
+            ->join('municipio', 'municipio.id = clientes.cidade')
+            ->where('clientes.cidade', $cliente->cidade)
+            ->first();
+
+        // $cidade = '<div class="font-weight-bold text-primary ml-1"><i class="fas fa-long-arrow-alt-right text-secondary"></i>&nbsp;&nbsp;<strong>' . $dadosCidade->nome . "/" . $dadosCidade->uf .
+        //     '</strong><br><strong class="text-success mx-3 my-3">&nbsp; Código IBGE: "' . $dadosCidade->codigo_ibge . '</strong></div>';
+
+        $data = [
+            'titulo' => "Editando o cliente",
+            'cliente' => $cliente,
+            'cidade' => $cidade->nome
+        ];
+        return view('cliente/editar', $data);
+    }
+
+    public function atualizar()
+    {
+        if (!$this->request->isAJAX()) {
+            return redirect()->back();
+        }
+
+        $retorno['token'] = csrf_hash();
+        $post = $this->request->getPost();
+        $cliente = $this->buscaClienteOu404($post['id']);
+        $cliente->fill($post);
+
+        if ($cliente->hasChanged() == false) {
+            $retorno['info'] = "Não houve alteração no registro!";
+
+            return $this->response->setJSON($retorno);
+        }
+
+        if ($this->clienteModel->protect(false)->save($cliente)) {
+            session()->setFlashdata('sucesso', "O registro: $cliente->razao foi atualizado");
+            $retorno['redirect_url'] = base_url('clientes');
+            return $this->response->setJSON($retorno);
+        }
+
+        //se chegou até aqui, é porque tem erros de validação
+        $retorno['erro'] = "Verifique os aviso de erro e tente novamente";
+        $retorno['erros_model'] = $this->clienteModel->errors();
+
+        return $this->response->setJSON($retorno);
     }
 
     /**

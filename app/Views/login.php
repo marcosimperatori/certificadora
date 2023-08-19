@@ -33,6 +33,7 @@
           <span class="login100-form-title">
             Agência Certificadora
           </span>
+          <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
 
           <div class="wrap-input100 validate-input m-b-16" data-validate="Digite seu email">
             <input class="input100" type="text" name="email" placeholder="Email">

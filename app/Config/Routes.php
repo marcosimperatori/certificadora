@@ -46,10 +46,13 @@ $routes->get('escritorios/excluir/(:any)', 'Escritorio::editar/$1');
 $routes->get('clientes', 'Cliente::index', ['as' => 'clientes']);
 $routes->get('clientes/getall', 'Cliente::getAll');
 $routes->get('clientes/consulta_cidade', 'Cliente::listarCidades');
+$routes->get('clientes/editar/consulta_cidade', 'Cliente::listarCidades');
 $routes->post('clientes/cadastrar', 'Cliente::cadastrar');
+$routes->post('clientes/editar/atualizar', 'Cliente::atualizar');
 
 $routes->get('clientes/criar', 'Cliente::criar');
 $routes->get('clientes/editar/(:alphanum)', 'Cliente::editar/$1');
+$routes->get('clientes/excluir/(:alphanum)', 'Cliente::excluir/$1');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
