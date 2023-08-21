@@ -59,7 +59,7 @@ $(document).ready(function () {
     // Limpe o elemento select
     $("#uf").empty();
     $("#uf").append("<option value=''>...</option>");
-    $("#cid").attr("disabled", true);
+    $("#cidade").attr("disabled", true);
 
     // Itere sobre os dados
     $.each(data, function (key, value) {
@@ -88,27 +88,29 @@ $("#uf").change(function () {
 
   if (selectedUF !== "") {
     // Mostra o texto de "Carregando" no select de cidades
-    $("#cid")
+    $("#cidade")
       .html("<option value=''>Carregando...</option>")
       .attr("disabled", true);
 
     $.get("municipio", { uf: selectedUF }, function (data) {
-      $("#cid").empty().attr("disabled", false); // Habilita o select de cidades
+      $("#cidade").empty().attr("disabled", false); // Habilita o select de cidades
 
       if (data.length > 0) {
-        $("#cid").append("<option value=''>Selecione</option>");
+        $("#cidade").append("<option value=''>Selecione</option>");
         $.each(data, function (key, value) {
-          $("#cid").append(
+          $("#cidade").append(
             "<option value='" + value.id + "'>" + value.nome + "</option>"
           );
         });
       } else {
-        $("#cid").append("<option value=''>Nenhuma cidade encontrada</option>");
+        $("#cidade").append(
+          "<option value=''>Nenhuma cidade encontrada</option>"
+        );
       }
     });
   } else {
     // Se nenhuma UF foi selecionada, limpa a lista de cidades e desativa o select
-    $("#cid").empty().attr("disabled", true);
+    $("#cidade").empty().attr("disabled", true);
   }
 });
 
@@ -126,7 +128,8 @@ function buscaCNPJ() {
   });
 }
 
-$("#cidade").selectize({
+/*
+$("#teste").selectize11({
   valueField: "id",
   labelField: "nome",
   searchField: "nome",
@@ -162,15 +165,16 @@ $("#cidade").selectize({
       },
     });
   },
-});
+});*/
 
 $("#form_cad_cliente").on("submit", function (e) {
   e.preventDefault();
+  var baseUrl = window.location.href;
 
   if ($(this).hasClass("insert")) {
-    url = "cadastrar";
+    var url = baseUrl.replace("clientes/criar", "clientes/cadastrar");
   } else if ($(this).hasClass("update")) {
-    url = "atualizar";
+    var url = baseUrl.replace("clientes/criar", "/clientes/atualizar");
   }
 
   $.ajax({

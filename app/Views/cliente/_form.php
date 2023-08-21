@@ -28,8 +28,8 @@
         </div>
 
         <div class="form-group col-lg-10">
-          <label for="cid" class="form-label mt-2">Cidade</label>
-          <select type="select" class="form-select" name="cid" id="cid">
+          <label for="cidade" class="form-label mt-2">Cidade</label>
+          <select type="select" class="form-select" name="cidade" id="cidade">
           </select>
           <div id="response2" class="mt-2"></div>
         </div>

@@ -54,6 +54,7 @@ $routes->get('clientes/criar', 'Cliente::criar');
 $routes->get('clientes/editar/(:alphanum)', 'Cliente::editar/$1');
 $routes->get('clientes/excluir/(:alphanum)', 'Cliente::excluir/$1');
 
+//ajax para carregar cidades e municípios
 $routes->get('clientes/estados', 'Cliente::getUFs');
 $routes->get('clientes/municipio', 'Cliente::getMunicipio');
 /*

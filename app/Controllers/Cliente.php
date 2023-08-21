@@ -79,6 +79,7 @@ class Cliente extends BaseController
 
         //recuperando os dados que vieram na requisiçao
         $post = $this->request->getPost();
+        unset($post["uf"], $post["cnpj"]);
 
         //Criando um novo objeto da entidade usuário, ao mesmo tempo ele é populado com os dados que vieram na requisição ajax
         $cliente = new \App\Entities\ClienteEntity($post);
