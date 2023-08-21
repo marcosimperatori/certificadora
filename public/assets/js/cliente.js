@@ -1,63 +1,129 @@
+$("#lista-clientes").DataTable({
+  oLanguage: DATATABLE_PTBR,
+  ajax: {
+    url: "clientes/getall",
+    beforeSend: function () {
+      $("#tab-clientes").LoadingOverlay("show", {
+        background: "rgba(165, 190, 100, 0.5)",
+      });
+    },
+    complete: function () {
+      $("#tab-clientes").LoadingOverlay("hide");
+    },
+  },
+  columns: [
+    {
+      data: "razao",
+    },
+    {
+      data: "cidade",
+    },
+    {
+      data: "ativo",
+    },
+    {
+      data: "acoes",
+    },
+  ],
+  deferRender: true,
+  processing: false,
+  language: {
+    processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>',
+  },
+  responsive: true,
+  autoWidth: false,
+  pagingType: $(window).width() < 768 ? "simple" : "simple_numbers",
+  pageLength: 10,
+  columnDefs: [
+    {
+      width: "180px",
+      targets: [1],
+    },
+    {
+      width: "100px",
+      targets: [2],
+    },
+    {
+      width: "70px",
+      targets: [3],
+    },
+    {
+      className: "text-center",
+      targets: [3],
+    },
+  ],
+});
+
 $(document).ready(function () {
-  $("#lista-clientes").DataTable({
-    oLanguage: DATATABLE_PTBR,
-    ajax: {
-      url: "clientes/getall",
-      beforeSend: function () {
-        $("#tab-clientes").LoadingOverlay("show", {
-          background: "rgba(165, 190, 100, 0.5)",
-        });
-      },
-      complete: function () {
-        $("#tab-clientes").LoadingOverlay("hide");
-      },
-    },
-    columns: [
-      {
-        data: "razao",
-      },
-      {
-        data: "cidade",
-      },
-      {
-        data: "ativo",
-      },
-      {
-        data: "acoes",
-      },
-    ],
-    deferRender: true,
-    processing: false,
-    language: {
-      processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>',
-    },
-    responsive: true,
-    autoWidth: false,
-    pagingType: $(window).width() < 768 ? "simple" : "simple_numbers",
-    pageLength: 10,
-    columnDefs: [
-      {
-        width: "180px",
-        targets: [1],
-      },
-      {
-        width: "100px",
-        targets: [2],
-      },
-      {
-        width: "70px",
-        targets: [3],
-      },
-      {
-        className: "text-center",
-        targets: [3],
-      },
-    ],
+  $.get("estados", function (data) {
+    // Limpe o elemento select
+    $("#uf").empty();
+    $("#uf").append("<option value=''>...</option>");
+    $("#cid").attr("disabled", true);
+
+    // Itere sobre os dados
+    $.each(data, function (key, value) {
+      // Adicione uma nova opção ao elemento select
+      $("#uf").append(
+        "<option value='" + value.uf + "'>" + value.uf + "</option>"
+      );
+    });
+  });
+
+  $("#buscarButton").on("click", function () {
+    var cnpj = $("#cnpjInput").val();
+    if (cnpj) {
+      // Faz a chamada à API usando o $.get()
+      $.get("https://brasilapi.com.br/api/cnpj/v1/" + cnpj, function (data) {
+        // Preenche os campos na tela com os dados da API
+        $("#nomeEmpresa").val(data.nome);
+        $("#enderecoEmpresa").val(data.endereco);
+      });
+    }
   });
 });
 
-function setDados(){
-  
+$("#uf").change(function () {
+  var selectedUF = $("#uf").val();
+
+  if (selectedUF !== "") {
+    // Mostra o texto de "Carregando" no select de cidades
+    $("#cid")
+      .html("<option value=''>Carregando...</option>")
+      .attr("disabled", true);
+
+    $.get("municipio", { uf: selectedUF }, function (data) {
+      $("#cid").empty().attr("disabled", false); // Habilita o select de cidades
+
+      if (data.length > 0) {
+        $("#cid").append("<option value=''>Selecione</option>");
+        $.each(data, function (key, value) {
+          $("#cid").append(
+            "<option value='" + value.id + "'>" + value.nome + "</option>"
+          );
+        });
+      } else {
+        $("#cid").append("<option value=''>Nenhuma cidade encontrada</option>");
+      }
+    });
+  } else {
+    // Se nenhuma UF foi selecionada, limpa a lista de cidades e desativa o select
+    $("#cid").empty().attr("disabled", true);
+  }
+});
+
+function buscaCNPJ() {
+  $("#cnpjInput").on("blur", function (event) {
+    console.log("estou aqui");
+    var cnpj = $(this).val();
+    if (cnpj) {
+      // Faz a chamada à API usando o $.get()
+      $.get("https://brasilapi.com.br/api/cnpj/v1/" + cnpj, function (data) {
+        console.log(data); // Exibe os dados retornados pela API no console
+        // Você pode manipular os dados aqui conforme necessário
+      });
+    }
+  });
 }
 
 $("#cidade").selectize({

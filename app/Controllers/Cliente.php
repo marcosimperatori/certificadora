@@ -112,18 +112,18 @@ class Cliente extends BaseController
 
         $cliente = $this->buscaClienteOu404($id);
 
-        $cidade = $this->clienteModel->select('municipio.nome,municipio.uf,municipio.codigo_ibge')
+        $dadosCidade = $this->clienteModel->select('municipio.nome,municipio.uf,municipio.codigo_ibge')
             ->join('municipio', 'municipio.id = clientes.cidade')
             ->where('clientes.cidade', $cliente->cidade)
             ->first();
 
-        // $cidade = '<div class="font-weight-bold text-primary ml-1"><i class="fas fa-long-arrow-alt-right text-secondary"></i>&nbsp;&nbsp;<strong>' . $dadosCidade->nome . "/" . $dadosCidade->uf .
-        //     '</strong><br><strong class="text-success mx-3 my-3">&nbsp; Código IBGE: "' . $dadosCidade->codigo_ibge . '</strong></div>';
+        $cidade = '<div class="font-weight-bold text-primary ml-1"><i class="fas fa-long-arrow-alt-right text-secondary"></i>&nbsp;&nbsp;<strong>' . $dadosCidade->nome . "/" . $dadosCidade->uf .
+            '</strong><br><strong class="text-success mx-3 my-3">&nbsp; Código IBGE: "' . $dadosCidade->codigo_ibge . '</strong></div>';
 
         $data = [
             'titulo' => "Editando o cliente",
             'cliente' => $cliente,
-            'cidade' => $cidade->nome
+            'cidade' => $cliente->cidade
         ];
         return view('cliente/editar', $data);
     }
@@ -198,6 +198,29 @@ class Cliente extends BaseController
             'data' => $retorno
         ];
 
+        return $this->response->setJSON($data);
+    }
+
+    public function getUFs()
+    {
+        if (!$this->request->isAJAX()) {
+            return redirect()->back();
+        }
+        $municipio = new \App\Models\MunicipioModel();
+        $data = $municipio->select('uf')->orderBy('uf', 'asc')->distinct()->findAll();
+        return $this->response->setJSON($data);
+    }
+
+    public function getMunicipio()
+    {
+        if (!$this->request->isAJAX()) {
+            return redirect()->back();
+        }
+
+        $uf = $this->request->getGet('uf');
+
+        $municipio = new \App\Models\MunicipioModel();
+        $data = $municipio->select('id,nome')->where('uf', $uf)->orderBy('nome', 'asc')->findAll();
         return $this->response->setJSON($data);
     }
 }

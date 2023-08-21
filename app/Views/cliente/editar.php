@@ -23,7 +23,6 @@
 
   <?php form_close(); ?>
   </div>
-
 </section>
 
 <?php $this->endSection(); ?>

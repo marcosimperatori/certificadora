@@ -29,24 +29,24 @@ const DATATABLE_PTBR = {
   },
 };
 
-$(document).ready(function () {});
-
+//$(document).ready(function () {});
 
 function exibirErros(erros_model) {
   $.each(erros_model, function (key, value) {
-      var errorElement = $('[name="' + key + '"]');
-      if (errorElement.length) {
-          var errorContainer = errorElement.next('.error');
-          if (errorContainer.length === 0) {
-              errorContainer = $('<div class="error text-danger" style="font-size: 13px"></div>');
-              errorElement.after(errorContainer);
-          }
-          errorContainer.text(value);
-
-          errorElement.on('input', function () {
-              errorContainer.remove();
-          });
+    var errorElement = $('[name="' + key + '"]');
+    if (errorElement.length) {
+      var errorContainer = errorElement.next(".error");
+      if (errorContainer.length === 0) {
+        errorContainer = $(
+          '<div class="error text-danger" style="font-size: 13px"></div>'
+        );
+        errorElement.after(errorContainer);
       }
+      errorContainer.text(value);
+
+      errorElement.on("input", function () {
+        errorContainer.remove();
+      });
+    }
   });
 }
-

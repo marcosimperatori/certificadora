@@ -9,17 +9,33 @@
         <input type="text" class="form-control" id="razao" aria-describedby="razao" name="razao" value="<?php echo esc($cliente->razao); ?>" placeholder="Informe a razão social">
       </div>
       <div class="row">
-        <div class="form-group col-lg-7">
+        <div class="form-group col-lg-4">
+          <label for="uf" class="form-label mt-2">CNPJ</label>
+          <input type="text" class="form-control" id="cnpj" placeholder="Digite o CNPJ">
+          <div id="response2" class="mt-2"></div>
+        </div>
+
+        <div class="form-group col-lg-8">
           <label for="email" class="form-label mt-2">Email</label>
           <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email" value="<?php echo esc($cliente->email); ?>" placeholder="Digite o email do cliente">
         </div>
-        <div class="form-group col-lg-5">
-          <label class="form-label mt-2">Cidade</label>
-          <select type="text" name="cidade" id="cidade">
-            <option value="<?php echo esc($cliente->cidade); ?>"><?php echo esc($cidade); ?></option>
+
+        <div class="form-group col-lg-2">
+          <label for="uf" class="form-label mt-2">UF</label>
+          <select type="select" class="form-select" name="uf" id="uf">
           </select>
           <div id="response2" class="mt-2"></div>
         </div>
+
+        <div class="form-group col-lg-10">
+          <label for="cid" class="form-label mt-2">Cidade</label>
+          <select type="select" class="form-select" name="cid" id="cid">
+          </select>
+          <div id="response2" class="mt-2"></div>
+        </div>
+
+
+
       </div>
       <div class="custom-control custom-checkbox">
         <div class="form-check mt-2 d-flex justify-content-end">
